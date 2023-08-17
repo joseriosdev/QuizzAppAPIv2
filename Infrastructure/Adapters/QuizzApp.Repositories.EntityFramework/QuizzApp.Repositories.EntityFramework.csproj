@@ -19,4 +19,9 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.10" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Core\Application\Ports\QuizzApp.Ports.Repositories\QuizzApp.Ports.Repositories.csproj" />
+    <ProjectReference Include="..\..\..\Core\Domain\QuizzApp.Domain.Models\QuizzApp.Domain.Models.csproj" />
+  </ItemGroup>
+
 </Project>

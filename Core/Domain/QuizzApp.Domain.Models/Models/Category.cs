@@ -5,6 +5,10 @@ namespace QuizzApp.Server.Models;
 
 public partial class Category
 {
+    public Category()
+    {
+        CategoriesQuizes = new List<CategoriesQuize>();
+    }
     public int Id { get; set; }
 
     public string? Name { get; set; }
