@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace QuizzApp.Domain.Models.DTOs
 {
-    public class CategoryForDisplay
+    public class CategoryDTO
     {
+        [Required]
+        public string? Name { get; set; }
     }
 }

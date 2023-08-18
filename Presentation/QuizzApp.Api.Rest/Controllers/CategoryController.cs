@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using QuizzApp.Domain.Models.DTOs;
 using QuizzApp.Ports.Repositories;
+using QuizzApp.Ports.Services;
 using QuizzApp.Server.Models;
 using System;
 using System.Collections.Generic;
@@ -13,92 +14,57 @@ using System.Threading.Tasks;
 namespace QuizzApp.Api.Rest.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class CategoryController : ControllerBase
     {
-        private readonly ICategoryRepository _categoryHandler;
+        private readonly ICategoryService _categoryService;
 
-        public CategoryController(ICategoryRepository category)
+        public CategoryController(ICategoryService categoryService)
         {
-            ArgumentNullException.ThrowIfNull(category);
-            _categoryHandler = category;
+            ArgumentNullException.ThrowIfNull(categoryService);
+            _categoryService = categoryService;
         }
 
         [HttpPost]
-        public async Task<ActionResult<Category>> PostCategory(
-            [FromBody] Category category)
+        [ProducesResponseType(201)]
+        public async Task<IActionResult> PostCategory([FromBody] CategoryDTO category, CancellationToken cToken)
         {
-            var result = await _categoryHandler
-                .CreateCategoryAsync(category);
+            Category result = await _categoryService.CreateAsync(category, cToken);
+            return CreatedAtAction(nameof(PostCategory), result);
+        }
+
+        [HttpGet("/{id}")]
+        [ProducesResponseType(typeof(Category), 200)]
+        [ProducesResponseType(typeof(string), 200)]
+        public async Task<ActionResult<Category>> GetSingleCategory(int id, CancellationToken cToken)
+        {
+            Category? result = await _categoryService.FindByIdAsync(id, cToken);
+
+            if (result is null)
+                return Ok("No matches");
 
             return Ok(result);
-        }
-        [HttpGet]
-        [ProducesResponseType(typeof(CategoryDTO))]
-        public async Task<ActionResult<CategoryDTO>> GetCategory(
-        int id, CancellationToken cancellationToken)
-        {
-            var result = await _categoryHandler
-                .RetrieveCategory(id, cancellationToken);
-
-            if (result.IsT0)
-            {
-                return Ok(result.AsT0);
-            }
-
-            return result.HandleError(this);
-        }
-
-        [HttpPost]
-        [ProducesResponseType(typeof(CategoryForUpsert), 201)]
-        [ProducesResponseType(422)]
-        public async Task<ActionResult<CategoryForUpsert>> PostCategory(
-            [FromBody] CategoryForUpsert category, CancellationToken cancellationToken)
-        {
-            var result = await _categoryHandler
-                .CreateCategory(category, cancellationToken);
-            if (result.IsT0)
-            {
-                var resourceUrl = Url.Action(
-                    "GetCategory",
-                    "Categories",
-                    new { result.AsT0.Id, cancellationToken }, Request.Scheme);
-                var responseCategory = result.AsT0.Adapt<CategoryForUpsert>();
-                return Created(resourceUrl!, responseCategory);
-            }
-
-            return result.HandleError(this);
         }
 
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(CategoryForDisplay), 200)]
         [ProducesResponseType(422)]
-        public async Task<ActionResult<CategoryForDisplay>> PutCategory(
-            int id, [FromBody] CategoryForUpsert category, CancellationToken cancellationToken)
+        public async Task<ActionResult<CategoryDTO>> PutCategory(
+            int id, [FromBody] CategoryDTO category, CancellationToken cToken)
         {
-            var result = await _categoryHandler
-                .UpdateCategory(id, category, cancellationToken);
-            if (result.IsT0)
-            {
-                return Ok(result.AsT0);
-            }
+            var result = await _categoryService.UpdatepByIdAsync(id, category, cToken);
+            // discriminated union - functional programming
+            //result.AsT0;
 
-            return result.HandleError(this);
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]
         [ProducesResponseType(204)]
-        public async Task<ActionResult> DeleteCategory(
-            int id, CancellationToken cancellationToken)
+        public async Task<ActionResult> DeleteCategory(int id, CancellationToken cToken)
         {
-            var result = await _categoryHandler
-                .DeleteCategory(id, cancellationToken);
-            if (result.IsT0)
-            {
-                return NoContent();
-            }
-
-            return result.HandleError(this);
+            var result = await _categoryService.DeleteByIdAsync(id, cToken);
+            return NoContent();
         }
     }
 }

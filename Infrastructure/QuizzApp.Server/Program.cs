@@ -1,4 +1,7 @@
+using FluentValidation;
+using QuizzApp.Domain.Models.DTOs;
 using QuizzApp.Server;
+using QuizzApp.Services.Validations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IValidator<CategoryDTO>, CategoryValidator>();
 
 var app = builder.Build();
 
