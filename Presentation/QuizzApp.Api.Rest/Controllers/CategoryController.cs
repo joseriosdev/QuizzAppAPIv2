@@ -47,7 +47,7 @@ namespace QuizzApp.Api.Rest.Controllers
         }
 
         [HttpPut("{id}")]
-        [ProducesResponseType(typeof(CategoryForDisplay), 200)]
+        [ProducesResponseType(typeof(CategoryDTO), 200)]
         [ProducesResponseType(422)]
         public async Task<ActionResult<CategoryDTO>> PutCategory(
             int id, [FromBody] CategoryDTO category, CancellationToken cToken)

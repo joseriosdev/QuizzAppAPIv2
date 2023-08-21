@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace QuizzApp.Ports.Repositories
 {
-    internal interface IQuizRepository
+    public interface IQuizRepository
     {
     }
 }

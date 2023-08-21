@@ -8,5 +8,5 @@ using System.Threading.Tasks;
 
 namespace QuizzApp.Domain.Models.DTOs
 {
-    public record CategoryForUpsert(int Id, string? Name);
+    public record UserToUpsertDTO(string? Email, string? Name, string? Password);
 }

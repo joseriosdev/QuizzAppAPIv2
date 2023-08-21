@@ -43,7 +43,7 @@ namespace QuizzApp.Repositories.EntityFramework
 
             try
             {
-                category.Name = categoryDTO.Name;
+                category!.Name = categoryDTO.Name;
                 _context.Entry(category).State = EntityState.Modified;
                 await _context.SaveChangesAsync(cToken);
             }
