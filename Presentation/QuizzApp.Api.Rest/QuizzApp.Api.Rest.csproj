@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.10">
@@ -18,7 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Application\Ports\QuizzApp.Ports.Repositories\QuizzApp.Ports.Repositories.csproj" />
-    <ProjectReference Include="..\..\Infrastructure\Adapters\QuizzApp.Repositories.EntityFramework\QuizzApp.Repositories.EntityFramework.csproj" />
+    <ProjectReference Include="..\..\Core\Application\Ports\QuizzApp.Ports.Services\QuizzApp.Ports.Services.csproj" />
   </ItemGroup>
 
 </Project>

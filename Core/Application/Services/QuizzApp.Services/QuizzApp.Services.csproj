@@ -7,12 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="FluentValidation" Version="11.7.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.10">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Domain\QuizzApp.Domain.Models\QuizzApp.Domain.Models.csproj" />
+    <ProjectReference Include="..\..\Ports\QuizzApp.Ports.Repositories\QuizzApp.Ports.Repositories.csproj" />
+    <ProjectReference Include="..\..\Ports\QuizzApp.Ports.Services\QuizzApp.Ports.Services.csproj" />
   </ItemGroup>
 
 </Project>
