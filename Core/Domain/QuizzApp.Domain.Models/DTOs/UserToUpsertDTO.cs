@@ -8,5 +8,10 @@ using System.Threading.Tasks;
 
 namespace QuizzApp.Domain.Models.DTOs
 {
-    public record UserToUpsertDTO(string? Email, string? Name, string? Password);
+    public class UserToUpsertDTO
+    {
+        public string? Email { get; set; }
+        public string? Password { get; set; }
+        public string? Name { get; set; }
+    }
 }

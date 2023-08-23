@@ -10,10 +10,12 @@ namespace QuizzApp.Ports.Repositories
 {
     public interface IUserRepository
     {
-        Task<UserToDisplayDTO> UpsertUserAsync(int id, UserToUpsertDTO userDTO, CancellationToken cToken);
+        Task<UserToDisplayDTO> UpdateUserAsync(int id, UserToUpsertDTO userDTO, CancellationToken cToken);
+        Task<UserToDisplayDTO> InsertUserAsync(UserToUpsertDTO userDTO, CancellationToken cToken);
         Task<IEnumerable<UserToDisplayDTO>> GetAllUsersAsync(CancellationToken cToken);
-        Task<UserToDisplayDTO?> GetUserByIdAsync(int id, CancellationToken cToken);
-        Task<User?> GetWholeUserByIdAsync(int id, CancellationToken cToken);
+        Task<UserToDisplayDTO> GetUserByIdAsync(int id, CancellationToken cToken);
+        Task<User> GetWholeUserByIdAsync(int id);
+        Task UpdateWholeUserByIdAsync(int id, User user);
         Task<bool> DeleteUserByIdAsync(int id, CancellationToken cToken);
     }
 }

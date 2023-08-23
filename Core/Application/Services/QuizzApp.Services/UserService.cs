@@ -1,9 +1,13 @@
-﻿using QuizzApp.Domain.Models.DTOs;
+﻿using FluentValidation;
+using QuizzApp.Domain.Models.DTOs;
 using QuizzApp.Ports.Repositories;
 using QuizzApp.Ports.Services;
 using QuizzApp.Server.Models;
+using QuizzApp.Services.ExtensionMethods;
+using QuizzApp.Services.Validations;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,29 +22,53 @@ namespace QuizzApp.Services
             _userRepository = userRepo;
         }
 
-        public Task<User> CreateAsync(UserToUpsertDTO userDTO, CancellationToken cToken)
+        public async Task<UserToDisplayDTO> UpdateAsync(int id, UserToUpsertDTO userDTO, CancellationToken cToken)
         {
-            throw new NotImplementedException();
+            ValidateUser(userDTO);
+            userDTO = await ValidateUserPasswordChanged(userDTO, id);
+            return await _userRepository.UpdateUserAsync(id, userDTO, cToken);
         }
 
-        public Task<IEnumerable<UserToDisplayDTO>> FindAllAsync(CancellationToken cToken)
+        public async Task<UserToDisplayDTO> InsertAsync(UserToUpsertDTO userDTO, CancellationToken cToken)
         {
-            throw new NotImplementedException();
+            ValidateUser(userDTO);
+            userDTO.Password = userDTO.Password!.GetSha256();
+            return await _userRepository.InsertUserAsync(userDTO, cToken);
         }
 
-        public Task<UserToDisplayDTO?> FindByIdAsync(int id, CancellationToken cToken)
+        public async Task<IEnumerable<UserToDisplayDTO>> FindAllAsync(CancellationToken cToken)
         {
-            throw new NotImplementedException();
+            return await _userRepository.GetAllUsersAsync(cToken);
         }
 
-        public Task<User> FindDetailedInfoAsync(int id, CancellationToken cToken)
+        public async Task<UserToDisplayDTO> FindByIdAsync(int id, CancellationToken cToken)
         {
-            throw new NotImplementedException();
+            return await _userRepository.GetUserByIdAsync(id, cToken);
         }
 
-        public Task<UserToDisplayDTO> UpdateByIdAsync(int id, UserToUpsertDTO userDTO, CancellationToken cToken)
+        public async Task<User> FindDetailedInfoAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _userRepository.GetWholeUserByIdAsync(id);
+        }
+
+        private void ValidateUser(UserToUpsertDTO user)
+        {
+            UserValidator uValidator = new();
+            uValidator.ValidateAndThrow(user);
+        }
+
+        private async Task<UserToUpsertDTO> ValidateUserPasswordChanged(UserToUpsertDTO userDto, int id)
+        {
+            User userDB = await FindDetailedInfoAsync(id);
+            if(userDB.Password == userDto.Password)
+            {
+                return userDto;
+            }
+            else
+            {
+                userDto.Password = userDto.Password!.GetSha256();
+                return userDto;
+            }
         }
     }
 }
