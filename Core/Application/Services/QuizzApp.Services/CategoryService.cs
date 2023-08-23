@@ -1,7 +1,9 @@
-﻿using QuizzApp.Domain.Models.DTOs;
+﻿using FluentValidation;
+using QuizzApp.Domain.Models.DTOs;
 using QuizzApp.Ports.Repositories;
 using QuizzApp.Ports.Services;
 using QuizzApp.Server.Models;
+using QuizzApp.Services.Validations;
 
 namespace QuizzApp.Services
 {
@@ -15,6 +17,7 @@ namespace QuizzApp.Services
         }
         public Task<Category> CreateAsync(CategoryDTO categoryDTO, CancellationToken cToken)
         {
+            ValidateCategory(categoryDTO);
             return _categoryRepository.CreateCategoryAsync(categoryDTO, cToken);
         }
 
@@ -35,7 +38,14 @@ namespace QuizzApp.Services
 
         public Task<Category> UpdateByIdAsync(int id, CategoryDTO categoryDTO, CancellationToken cToken)
         {
+            ValidateCategory(categoryDTO);
             return _categoryRepository.UpdateCategoryByIdAsync(id, categoryDTO, cToken);
+        }
+
+        private void ValidateCategory(CategoryDTO category)
+        {
+            CategoryValidator cValidator = new ();
+            cValidator.ValidateAndThrow(category);
         }
     }
 }
