@@ -52,7 +52,7 @@ namespace QuizzApp.Api.Rest.Controllers
         public async Task<ActionResult<CategoryDTO>> PutCategory(
             int id, [FromBody] CategoryDTO category, CancellationToken cToken)
         {
-            var result = await _categoryService.UpdatepByIdAsync(id, category, cToken);
+            var result = await _categoryService.UpdateByIdAsync(id, category, cToken);
             // discriminated union - functional programming
             //result.AsT0;
 

@@ -5,10 +5,10 @@ namespace QuizzApp.Ports.Services
 {
     public interface IUserService
     {
-        Task<User> CreateAsync(CategoryDTO categoryDTO, CancellationToken cToken);
-        Task<IEnumerable<Category>> FindAllAsync(CancellationToken cToken);
-        Task<Category?> FindByIdAsync(int id, CancellationToken cToken);
-        Task<Category> UpdatepByIdAsync(int id, CategoryDTO categoryDTO, CancellationToken cToken);
-        Task<bool> DeleteByIdAsync(int id, CancellationToken cToken);
+        Task<User> CreateAsync(UserToUpsertDTO userDTO, CancellationToken cToken);
+        Task<IEnumerable<UserToDisplayDTO>> FindAllAsync(CancellationToken cToken);
+        Task<UserToDisplayDTO?> FindByIdAsync(int id, CancellationToken cToken);
+        Task<UserToDisplayDTO> UpdateByIdAsync(int id, UserToUpsertDTO userDTO, CancellationToken cToken);
+        Task<User> FindDetailedInfoAsync(int id, CancellationToken cToken);
     }
 }

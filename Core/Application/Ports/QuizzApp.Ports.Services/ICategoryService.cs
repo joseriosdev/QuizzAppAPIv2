@@ -9,7 +9,7 @@ namespace QuizzApp.Ports.Services
         Task<Category> CreateAsync(CategoryDTO categoryDTO, CancellationToken cToken);
         Task<IEnumerable<Category>> FindAllAsync(CancellationToken cToken);
         Task<Category?> FindByIdAsync(int id, CancellationToken cToken);
-        Task<Category> UpdatepByIdAsync(int id, CategoryDTO categoryDTO, CancellationToken cToken);
+        Task<Category> UpdateByIdAsync(int id, CategoryDTO categoryDTO, CancellationToken cToken);
         Task<bool> DeleteByIdAsync(int id, CancellationToken cToken);
     }
 }

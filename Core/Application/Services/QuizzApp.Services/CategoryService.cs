@@ -33,7 +33,7 @@ namespace QuizzApp.Services
             return _categoryRepository.GetAllCategoriesAsync(cToken);
         }
 
-        public Task<Category> UpdatepByIdAsync(int id, CategoryDTO categoryDTO, CancellationToken cToken)
+        public Task<Category> UpdateByIdAsync(int id, CategoryDTO categoryDTO, CancellationToken cToken)
         {
             return _categoryRepository.UpdateCategoryByIdAsync(id, categoryDTO, cToken);
         }
