@@ -10,6 +10,6 @@ namespace QuizzApp.Ports.Services
         Task<UserToDisplayDTO> UpdateAsync(int id, UserToUpsertDTO userDTO, CancellationToken cToken);
         Task<UserToDisplayDTO> InsertAsync(UserToUpsertDTO userDTO, CancellationToken cToken);
         Task<User> FindDetailedInfoAsync(int id);
-        Task DeactivateUserAsync(int id, CancellationToken cToken);
+        Task<bool> DeleteUserAsync(int id, CancellationToken cToken);
     }
 }

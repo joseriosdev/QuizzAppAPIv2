@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using QuizzApp.Domain.Models.DTOs;
 using QuizzApp.Ports.Repositories;
 using QuizzApp.Ports.Services;
@@ -50,6 +51,13 @@ namespace QuizzApp.Services
         {
             return await _userRepository.GetWholeUserByIdAsync(id);
         }
+
+        public async Task<bool> DeleteUserAsync(int id, CancellationToken cToken)
+        {
+            bool result = await _userRepository.DeleteUserByIdAsync(id, cToken);
+            return result;
+        }
+
 
         private void ValidateUser(UserToUpsertDTO user)
         {

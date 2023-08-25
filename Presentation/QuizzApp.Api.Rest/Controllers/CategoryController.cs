@@ -46,6 +46,19 @@ namespace QuizzApp.Api.Rest.Controllers
             return Ok(result);
         }
 
+        [HttpGet]
+        [ProducesResponseType(typeof(Category), 200)]
+        [ProducesResponseType(typeof(string), 200)]
+        public async Task<ActionResult<Category>> GetAllCategories(int id, CancellationToken cToken)
+        {
+            var result = await _categoryService.FindAllAsync(cToken);
+
+            if (result.Count() == 0)
+                return Ok("No matches");
+
+            return Ok(result);
+        }
+
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(CategoryDTO), 200)]
         [ProducesResponseType(422)]

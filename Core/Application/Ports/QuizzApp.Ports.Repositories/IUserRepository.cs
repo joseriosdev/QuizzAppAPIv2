@@ -15,7 +15,6 @@ namespace QuizzApp.Ports.Repositories
         Task<IEnumerable<UserToDisplayDTO>> GetAllUsersAsync(CancellationToken cToken);
         Task<UserToDisplayDTO> GetUserByIdAsync(int id, CancellationToken cToken);
         Task<User> GetWholeUserByIdAsync(int id);
-        Task UpdateWholeUserByIdAsync(int id, User user);
         Task<bool> DeleteUserByIdAsync(int id, CancellationToken cToken);
     }
 }
