@@ -5,6 +5,7 @@ using QuizzApp.Ports.Repositories;
 using QuizzApp.Server.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,34 +42,41 @@ namespace QuizzApp.Repositories.EntityFramework
             return usersDtos;
         }
 
-        public async Task<UserToDisplayDTO?> GetUserByIdAsync(int id, CancellationToken cToken)
+        public async Task<UserToDisplayDTO> GetUserByIdAsync(int id, CancellationToken cToken)
         {
             User? userDB = await _context.Users.FindAsync(id, cToken);
+            if (userDB is null)
+                throw new RowNotInTableException(nameof(userDB));
+
             UserToDisplayDTO userDto = _mapper.Map<UserToDisplayDTO>(userDB);
             return userDto;
         }
 
-        public async Task<User?> GetWholeUserByIdAsync(int id, CancellationToken cToken)
+        public async Task<User> GetWholeUserByIdAsync(int id)
         {
-            User? userDB = await _context.Users.FindAsync(id, cToken);
+            User? userDB = await _context.Users.FindAsync(id);
+            if(userDB is null)
+                throw new RowNotInTableException(nameof(userDB));
+
             return userDB;
         }
 
-        public async Task<UserToDisplayDTO> UpsertUserAsync(int id, UserToUpsertDTO userDTO, CancellationToken cToken)
+        public async Task<UserToDisplayDTO> InsertUserAsync(UserToUpsertDTO userDTO, CancellationToken cToken)
+        {
+            User userToCreate = _mapper.Map<User>(userDTO);
+            userToCreate.IsActive = true;
+            userToCreate.CreatedAt = DateTime.UtcNow;
+            await _context.Users.AddAsync(userToCreate, cToken);
+            await _context.SaveChangesAsync(cToken);
+            UserToDisplayDTO userToDisplay = _mapper.Map<UserToDisplayDTO>(userToCreate);
+            return userToDisplay;
+        }
+
+        public async Task<UserToDisplayDTO> UpdateUserAsync(int id, UserToUpsertDTO userDTO, CancellationToken cToken)
         {
             User? userDB = await _context.Users.FindAsync(id, cToken);
 
-            if (userDB == null)
-            {
-                User userToCreate = _mapper.Map<User>(userDTO);
-                userToCreate.IsActive = true;
-                userToCreate.CreatedAt = DateTime.UtcNow;
-                await _context.Users.AddAsync(userToCreate, cToken);
-                await _context.SaveChangesAsync(cToken);
-                UserToDisplayDTO userToDisplay = _mapper.Map<UserToDisplayDTO>(userDB);
-                return userToDisplay;
-            }
-            else
+            if (userDB is not null)
             {
                 userDB.Name = userDTO.Name;
                 userDB.Email = userDTO.Email;
@@ -78,6 +86,7 @@ namespace QuizzApp.Repositories.EntityFramework
                 UserToDisplayDTO userToDisplay = _mapper.Map<UserToDisplayDTO>(userDB);
                 return userToDisplay;
             }
+            throw new RowNotInTableException(nameof(userDTO));
         }
     }
 }

@@ -20,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Application\Ports\QuizzApp.Ports.Repositories\QuizzApp.Ports.Repositories.csproj" />
     <ProjectReference Include="..\..\Core\Application\Ports\QuizzApp.Ports.Services\QuizzApp.Ports.Services.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Adapters\QuizzApp.Repositories.EntityFramework\QuizzApp.Repositories.EntityFramework.csproj" />
   </ItemGroup>
 
 </Project>
