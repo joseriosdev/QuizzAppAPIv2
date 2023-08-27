@@ -15,9 +15,9 @@ namespace QuizzApp.Ports.Services
         Task<Quize> FindByIdAsync(
             int id, CancellationToken cancellationToken);
         Task<Quize> CreateAsync(
-            QuizForUpsert newQuiz, CancellationToken cancellationToken);
+            QuizToCreateDTO newQuiz, CancellationToken cancellationToken);
         Task<Quize> UpdatepByIdAsync(
-            QuizForUpsert quiz, CancellationToken cancellationToken);
+            QuizToCreateDTO quiz, CancellationToken cancellationToken);
         Task<bool> DeleteByIdAsync(
             int id, CancellationToken cancellationToken);
     }

@@ -10,5 +10,6 @@ namespace QuizzApp.Ports.Repositories
         Task<Category?> GetCategoryByIdAsync(int id, CancellationToken cToken);
         Task<Category> UpdateCategoryByIdAsync(int id, CategoryDTO categoryDTO, CancellationToken cToken);
         Task<bool> DeleteCategoryByIdAsync(int id, CancellationToken cToken);
+        Task<Category?> GetCategoryByNameAsync(string? name, CancellationToken cToken);
     }
 }

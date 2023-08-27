@@ -21,6 +21,7 @@ namespace QuizzApp.Repositories.EntityFramework
         public async Task<Category> CreateCategoryAsync(CategoryDTO categoryDTO, CancellationToken cToken)
         {
             Category category = _mapper.Map<Category>(categoryDTO);
+            category.CreatedAt = DateTime.UtcNow;
             await _context.Categories.AddAsync(category, cToken);
             await _context.SaveChangesAsync(cToken);
             return category;
@@ -34,6 +35,13 @@ namespace QuizzApp.Repositories.EntityFramework
         public async Task<Category?> GetCategoryByIdAsync(int id, CancellationToken cToken)
         {
             Category? category = await _context.Categories.FindAsync(id, cToken);
+            return category;
+        }
+
+        public async Task<Category?> GetCategoryByNameAsync(string? name, CancellationToken cToken)
+        {
+            Category? category = await _context.Categories
+                .FirstOrDefaultAsync(cat => cat.Name == name, cToken);
             return category;
         }
 

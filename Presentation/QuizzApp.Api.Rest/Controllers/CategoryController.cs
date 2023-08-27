@@ -1,4 +1,5 @@
 ﻿using Azure.Core;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QuizzApp.Domain.Models.DTOs;
 using QuizzApp.Ports.Repositories;
@@ -26,14 +27,22 @@ namespace QuizzApp.Api.Rest.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(201)]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Category))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
         public async Task<IActionResult> PostCategory([FromBody] CategoryDTO category, CancellationToken cToken)
         {
-            Category result = await _categoryService.CreateAsync(category, cToken);
+            Category result;
+            try
+            {
+                result = await _categoryService.CreateAsync(category, cToken);
+            } catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
             return CreatedAtAction(nameof(PostCategory), result);
         }
 
-        [HttpGet("/{id}")]
+        [HttpGet("{id}")]
         [ProducesResponseType(typeof(Category), 200)]
         [ProducesResponseType(typeof(string), 200)]
         public async Task<ActionResult<Category>> GetSingleCategory(int id, CancellationToken cToken)
@@ -49,7 +58,7 @@ namespace QuizzApp.Api.Rest.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(Category), 200)]
         [ProducesResponseType(typeof(string), 200)]
-        public async Task<ActionResult<Category>> GetAllCategories(int id, CancellationToken cToken)
+        public async Task<ActionResult<Category>> GetAllCategories(CancellationToken cToken)
         {
             var result = await _categoryService.FindAllAsync(cToken);
 

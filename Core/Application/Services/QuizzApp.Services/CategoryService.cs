@@ -15,31 +15,36 @@ namespace QuizzApp.Services
         {
             _categoryRepository = categoryRepo;
         }
-        public Task<Category> CreateAsync(CategoryDTO categoryDTO, CancellationToken cToken)
+        public async Task<Category> CreateAsync(CategoryDTO categoryDTO, CancellationToken cToken)
         {
             ValidateCategory(categoryDTO);
-            return _categoryRepository.CreateCategoryAsync(categoryDTO, cToken);
+            Category? isDuplicated = await _categoryRepository.GetCategoryByNameAsync(categoryDTO.Name, cToken);
+            if (isDuplicated != null)
+            {
+                throw new InvalidOperationException("Duplicated Category");
+            }
+            return await _categoryRepository.CreateCategoryAsync(categoryDTO, cToken);
         }
 
-        public Task<bool> DeleteByIdAsync(int id, CancellationToken cToken)
+        public async Task<bool> DeleteByIdAsync(int id, CancellationToken cToken)
         {
-            return _categoryRepository.DeleteCategoryByIdAsync(id, cToken);
+            return await _categoryRepository.DeleteCategoryByIdAsync(id, cToken);
         }
 
-        public Task<Category?> FindByIdAsync(int id, CancellationToken cToken)
+        public async Task<Category?> FindByIdAsync(int id, CancellationToken cToken)
         {
-            return _categoryRepository.GetCategoryByIdAsync(id, cToken);
+            return await _categoryRepository.GetCategoryByIdAsync(id, cToken);
         }
 
-        public Task<IEnumerable<Category>> FindAllAsync(CancellationToken cToken)
+        public async Task<IEnumerable<Category>> FindAllAsync(CancellationToken cToken)
         {
-            return _categoryRepository.GetAllCategoriesAsync(cToken);
+            return await _categoryRepository.GetAllCategoriesAsync(cToken);
         }
 
-        public Task<Category> UpdateByIdAsync(int id, CategoryDTO categoryDTO, CancellationToken cToken)
+        public async Task<Category> UpdateByIdAsync(int id, CategoryDTO categoryDTO, CancellationToken cToken)
         {
             ValidateCategory(categoryDTO);
-            return _categoryRepository.UpdateCategoryByIdAsync(id, categoryDTO, cToken);
+            return await _categoryRepository.UpdateCategoryByIdAsync(id, categoryDTO, cToken);
         }
 
         private void ValidateCategory(CategoryDTO category)

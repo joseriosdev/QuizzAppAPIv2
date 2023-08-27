@@ -13,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 var mapperConfig = new MapperConfiguration(m =>
 {
     m.AddProfile(new CategoryMapper());
+    m.AddProfile(new UserMapper());
 });
 IMapper mapper = mapperConfig.CreateMapper();
 // Add services to the container.

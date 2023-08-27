@@ -25,10 +25,12 @@ namespace QuizzApp.Api.Rest.Controllers
             ArgumentNullException.ThrowIfNull(quizService);
             _quizService = quizService;
         }
+    }
+}
 
-        [HttpGet]
+        /*[HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Quize>), 200)]
-        public async Task<ActionResult<IEnumerable<QuizForUpsert>>> GetQuizzes(CancellationToken cancellationToken)
+        public async Task<ActionResult<IEnumerable<QuizToCreateDTO>>> GetQuizzes(CancellationToken cancellationToken)
         {
             return Ok(await _quizService.RetrieveQuizzes(cancellationToken));
         }
@@ -68,8 +70,8 @@ namespace QuizzApp.Api.Rest.Controllers
         [HttpPost()]
         [ProducesResponseType(201)]
         [ProducesResponseType(422)]
-        public async Task<ActionResult<QuizForUpsert>> PostQuiz(
-            [FromBody] QuizForUpsert quiz, CancellationToken cancellationToken)
+        public async Task<ActionResult<QuizToCreateDTO>> PostQuiz(
+            [FromBody] QuizToCreateDTO quiz, CancellationToken cancellationToken)
         {
             var result = await _quizHandler
                 .CreateQuiz(quiz, cancellationToken);
@@ -83,7 +85,7 @@ namespace QuizzApp.Api.Rest.Controllers
                     _GetQuizByIdEndpointName,
                     "Quizzes",
                     new { result.AsT0.Id, cancellationToken }, Request.Scheme);
-            var responseQuiz = _Mapper.Map<QuizForUpsert>(result.AsT0);
+            var responseQuiz = _Mapper.Map<QuizToCreateDTO>(result.AsT0);
             return Created(resourceUrl!, responseQuiz);
         }
 
@@ -169,4 +171,5 @@ namespace QuizzApp.Api.Rest.Controllers
             }
 
             return result.HandleError(this);
-        }
+        } 
+        */

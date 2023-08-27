@@ -17,6 +17,7 @@ namespace QuizzApp.Services
         {
             services
                 .AddScoped<ICategoryService, CategoryService>()
+                .AddScoped<IUserService, UserService>()
                 .AddScoped<IValidator<CategoryDTO>, CategoryValidator>()
                 .AddScoped<IValidator<UserToUpsertDTO>, UserValidator>();
             return services;
