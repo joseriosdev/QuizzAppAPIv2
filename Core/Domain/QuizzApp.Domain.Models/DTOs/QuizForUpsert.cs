@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace QuizzApp.Domain.Models.DTOs
 {
-    internal class QuizForUpsert
+    public class QuizForUpsert
     {
     }
 }
