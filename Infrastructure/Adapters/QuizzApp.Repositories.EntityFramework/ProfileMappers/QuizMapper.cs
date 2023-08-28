@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 
 namespace QuizzApp.Repositories.EntityFramework.ProfileMappers
 {
-    public class AutoMapper : Profile
+    public class QuizMapper : Profile
     {
-        public AutoMapper() 
+        public QuizMapper() 
         {
-            CreateMap<CategoryDTO, Category>();
-            CreateMap<Category, CategoryDTO>();
+            CreateMap<QuizToCreateDTO, Quize>()
+                .ForMember(q => q.CreatedAt, opt => opt.Ignore());
+            //CreateMap<Quize, QuizToCreateDTO>();
         }
     }
 }

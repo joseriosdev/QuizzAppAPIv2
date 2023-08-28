@@ -14,7 +14,7 @@ namespace QuizzApp.Repositories.EntityFramework.ProfileMappers
         public CategoryMapper()
         {
             CreateMap<CategoryDTO, Category>();
-            CreateMap<Category, CategoryDTO>();
+            //CreateMap<Category, CategoryDTO>();
         }
     }
 }

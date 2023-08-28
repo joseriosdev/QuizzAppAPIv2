@@ -10,15 +10,13 @@ namespace QuizzApp.Ports.Services
 {
     public interface IQuizService
     {
-        Task<IEnumerable<Quize>> FindAllAsync(
-    CancellationToken cancellationToken);
-        Task<Quize> FindByIdAsync(
-            int id, CancellationToken cancellationToken);
-        Task<Quize> CreateAsync(
-            QuizToCreateDTO newQuiz, CancellationToken cancellationToken);
-        Task<Quize> UpdatepByIdAsync(
+        Task<IEnumerable<Quize>> FindAllAsync(CancellationToken cToken);
+        /*Task<Quize> FindByIdAsync(
+            int id, CancellationToken cancellationToken);*/
+        Task<Quize> CreateAsync(QuizToCreateDTO newQuiz, CancellationToken cToken);
+        /*Task<Quize> UpdatepByIdAsync(
             QuizToCreateDTO quiz, CancellationToken cancellationToken);
         Task<bool> DeleteByIdAsync(
-            int id, CancellationToken cancellationToken);
+            int id, CancellationToken cancellationToken);*/
     }
 }

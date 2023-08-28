@@ -8,5 +8,8 @@ namespace QuizzApp.Domain.Models.DTOs
 {
     public class QuizToCreateDTO
     {
+        public string? Name { get; set; }
+        public string? Description { get; set; }
+        public string? CreatedByEmail { get; set; }
     }
 }

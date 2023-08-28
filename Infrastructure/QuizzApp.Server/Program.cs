@@ -1,10 +1,7 @@
 using AutoMapper;
-using FluentValidation;
-using QuizzApp.Domain.Models.DTOs;
 using QuizzApp.Repositories.EntityFramework.ProfileMappers;
 using QuizzApp.Server;
 using QuizzApp.Services;
-using QuizzApp.Services.Validations;
 
 
 string _devCORS = "allowAll";
@@ -14,6 +11,7 @@ var mapperConfig = new MapperConfiguration(m =>
 {
     m.AddProfile(new CategoryMapper());
     m.AddProfile(new UserMapper());
+    m.AddProfile(new QuizMapper());
 });
 IMapper mapper = mapperConfig.CreateMapper();
 // Add services to the container.
@@ -21,7 +19,6 @@ IMapper mapper = mapperConfig.CreateMapper();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddApplicationServices();
 builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddSwaggerGen();

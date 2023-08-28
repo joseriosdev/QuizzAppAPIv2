@@ -61,6 +61,16 @@ namespace QuizzApp.Repositories.EntityFramework
             return userDB;
         }
 
+        public async Task<User> GetWholeUserByEmailAsync(string? email)
+        {
+            User? userDB = await _context.Users
+                .FirstOrDefaultAsync(u => u.Email == email);
+            if (userDB is null)
+                throw new RowNotInTableException(nameof(userDB));
+
+            return userDB;
+        }
+
         public async Task<UserToDisplayDTO> InsertUserAsync(UserToUpsertDTO userDTO, CancellationToken cToken)
         {
             User userToCreate = _mapper.Map<User>(userDTO);

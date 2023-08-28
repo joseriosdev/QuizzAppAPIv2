@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Azure.Core;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QuizzApp.Domain.Models.DTOs;
 using QuizzApp.Ports.Services;
@@ -24,6 +25,30 @@ namespace QuizzApp.Api.Rest.Controllers
         {
             ArgumentNullException.ThrowIfNull(quizService);
             _quizService = quizService;
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Quize))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
+        public async Task<IActionResult> PostQuiz([FromBody] QuizToCreateDTO quiz, CancellationToken cToken)
+        {
+            Quize result;
+            try
+            {
+                result = await _quizService.CreateAsync(quiz, cToken);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return CreatedAtAction(nameof(PostQuiz), result);
+        }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Quize))]
+        public async Task<IActionResult> GetQuizzes(CancellationToken cToken)
+        {
+            return Ok(await _quizService.FindAllAsync(cToken));
         }
     }
 }

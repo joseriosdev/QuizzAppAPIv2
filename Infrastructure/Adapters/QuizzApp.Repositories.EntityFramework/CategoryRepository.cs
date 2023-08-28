@@ -4,6 +4,7 @@ using QuizzApp.Domain.Models.DTOs;
 using QuizzApp.Ports.Repositories;
 using QuizzApp.Server.Models;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace QuizzApp.Repositories.EntityFramework
 {
@@ -49,18 +50,14 @@ namespace QuizzApp.Repositories.EntityFramework
         {
             Category? category = await _context.Categories.FindAsync(id, cToken);
 
-            try
+            if(category is not null)
             {
                 category!.Name = categoryDTO.Name;
                 _context.Entry(category).State = EntityState.Modified;
                 await _context.SaveChangesAsync(cToken);
+                return category;
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-
-            return category == null ? new Category() : category;
+            throw new Exception("Category is null or does not exists");
         }
 
         public async Task<bool> DeleteCategoryByIdAsync(int id, CancellationToken cToken)
