@@ -25,6 +25,7 @@ namespace QuizzApp.Server
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IQuizRepository, QuizRepository>();
+            services.AddScoped<IQuestionRepository, QuestionRepository>();
 
             return services;
         }

@@ -17,8 +17,6 @@ namespace QuizzApp.Api.Rest.Controllers
     [Route("api/[controller]")]
     public class QuizController : ControllerBase
     {
-        private const string _GetQuizByIdEndpointName = "GetQuiz";
-
         private readonly IQuizService _quizService;
 
         public QuizController(IQuizService quizService)
@@ -49,6 +47,13 @@ namespace QuizzApp.Api.Rest.Controllers
         public async Task<IActionResult> GetQuizzes(CancellationToken cToken)
         {
             return Ok(await _quizService.FindAllAsync(cToken));
+        }
+
+        [HttpPost("f")]
+        public async Task<IActionResult> PostMultipleChoiceQuestionAsync([FromBody] MultipleChoiceQuestionDTO question)
+        {
+            await Task.Delay(100);
+            return Ok();
         }
     }
 }
