@@ -13,10 +13,10 @@ namespace QuizzApp.Ports.Services
         Task<IEnumerable<Quize>> FindAllAsync(CancellationToken cToken);
         /*Task<Quize> FindByIdAsync(
             int id, CancellationToken cancellationToken);*/
-        Task<Quize> CreateAsync(QuizToCreateDTO newQuiz, CancellationToken cToken);
-        /*Task<Quize> UpdatepByIdAsync(
-            QuizToCreateDTO quiz, CancellationToken cancellationToken);
-        Task<bool> DeleteByIdAsync(
-            int id, CancellationToken cancellationToken);*/
+        Task<Quize> CreateDraftAsync(QuizToCreateDTO newQuiz, CancellationToken cToken);
+        Task<Quize> AddMultipleChoiceQuestionAsync(
+            int quizId, MultipleChoiceQuestionDTO question, CancellationToken cToken);
+        Task<Quize> AddFillInQuestionAsync(
+            int quizId, FillInQuestionDTO question, CancellationToken cToken);
     }
 }

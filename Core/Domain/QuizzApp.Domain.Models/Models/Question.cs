@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace QuizzApp.Server.Models;
 
@@ -24,6 +25,6 @@ public partial class Question
     public virtual ICollection<FillInBlankQuestion> FillInBlankQuestions { get; set; } = new List<FillInBlankQuestion>();
 
     public virtual ICollection<MultipleChoiceQuestion> MultipleChoiceQuestions { get; set; } = new List<MultipleChoiceQuestion>();
-
+    [JsonIgnore]
     public virtual Quize? Quiz { get; set; }
 }

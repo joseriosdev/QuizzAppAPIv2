@@ -12,5 +12,7 @@ namespace QuizzApp.Ports.Repositories
     {
         Task<Quize> CreateQuizAsync(Quize quizDto, CancellationToken cToken);
         Task<IEnumerable<Quize>> GetAllQuizAsync(CancellationToken cToken);
+        Task<Quize> GetQuizByIdAsync(int quizId, CancellationToken cToken);
+        Task<Quize> UpdateQuizAsync(Quize quiz, CancellationToken cToken);
     }
 }

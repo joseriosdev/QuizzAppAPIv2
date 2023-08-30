@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.Extensions.Options;
 using QuizzApp.Repositories.EntityFramework.ProfileMappers;
 using QuizzApp.Server;
 using QuizzApp.Services;
@@ -16,7 +17,11 @@ var mapperConfig = new MapperConfiguration(m =>
 IMapper mapper = mapperConfig.CreateMapper();
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(opts =>
+    {
+        opts.JsonSerializerOptions.ReferenceHandler = null;
+    });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddApplicationServices();

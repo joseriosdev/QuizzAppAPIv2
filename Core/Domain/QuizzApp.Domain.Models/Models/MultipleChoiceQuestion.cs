@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace QuizzApp.Server.Models;
 
@@ -16,6 +17,6 @@ public partial class MultipleChoiceQuestion
     public string? Value3 { get; set; }
 
     public string? Value4 { get; set; }
-
+    [JsonIgnore]
     public virtual Question? Question { get; set; }
 }
