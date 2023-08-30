@@ -13,7 +13,13 @@ namespace QuizzApp.Repositories.EntityFramework.ProfileMappers
     {
         public QuestionMapper()
         {
-            CreateMap<QuestionToCreateDTO, Question>();
+            CreateMap<Question, QuestionBaseDTO>();
+            CreateMap<QuestionBaseDTO, Question>();
+            CreateMap<MultipleChoiceQuestion, MultipleChoiceQuestionDTO>()
+                .IncludeBase<Question, QuestionBaseDTO>()
+                .ForMember(dest => dest.Choices, opt => opt.MapFrom(src =>
+                    new string[] { src.Value1, src.Value2, src.Value3, src.Value4 }));
+            CreateMap<MultipleChoiceQuestionDTO, MultipleChoiceQuestion>();
         }
     }
 }

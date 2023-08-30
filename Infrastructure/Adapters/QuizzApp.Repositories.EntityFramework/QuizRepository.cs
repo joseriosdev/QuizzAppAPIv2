@@ -28,8 +28,34 @@ namespace QuizzApp.Repositories.EntityFramework
 
         public async Task<IEnumerable<Quize>> GetAllQuizAsync(CancellationToken cToken)
         {
-            var quizes = await _context.Quizes.ToListAsync(cToken);
+            var quizes = await _context.Quizes
+                .Include(q => q.Questions)
+                    .ThenInclude(q => q.MultipleChoiceQuestions)
+                .Include(q => q.Questions)
+                    .ThenInclude(q => q.FillInBlankQuestions)
+                .ToListAsync(cToken);
             return quizes;
+        }
+
+        public async Task<Quize> GetQuizByIdAsync(int quizId, CancellationToken cToken)
+        {
+            Quize? quiz = await _context.Quizes
+                .Include(q => q.Questions)
+                    .ThenInclude(q => q.MultipleChoiceQuestions)
+                .Include(q => q.Questions)
+                    .ThenInclude(q => q.FillInBlankQuestions)
+                .SingleOrDefaultAsync(q => q.Id == quizId);
+            if (quiz == null)
+                throw new Exception("Quiz doesn't exits");
+            
+            return quiz;
+        }
+
+        public async Task<Quize> UpdateQuizAsync(Quize quiz, CancellationToken cToken)
+        {
+            _context.Entry(quiz).State = EntityState.Modified;
+            await _context.SaveChangesAsync(cToken);
+            return await GetQuizByIdAsync(quiz.Id, cToken);
         }
     }
 }

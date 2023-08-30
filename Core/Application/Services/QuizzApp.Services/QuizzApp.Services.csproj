@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Infrastructure\Adapters\QuizzApp.Repositories.EntityFramework\QuizzApp.Repositories.EntityFramework.csproj" />
     <ProjectReference Include="..\..\..\Domain\QuizzApp.Domain.Models\QuizzApp.Domain.Models.csproj" />
     <ProjectReference Include="..\..\Ports\QuizzApp.Ports.Repositories\QuizzApp.Ports.Repositories.csproj" />
     <ProjectReference Include="..\..\Ports\QuizzApp.Ports.Services\QuizzApp.Ports.Services.csproj" />

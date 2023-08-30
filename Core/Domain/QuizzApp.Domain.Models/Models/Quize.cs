@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace QuizzApp.Server.Models;
 
@@ -26,12 +27,12 @@ public partial class Quize
     public DateTime? UpdatedAt { get; set; }
 
     public virtual ICollection<CategoriesQuize> CategoriesQuizes { get; set; } = new List<CategoriesQuize>();
-
+    [JsonIgnore]
     public virtual User? CreatedByNavigation { get; set; }
-
+    [JsonIgnore]
     public virtual User? LatestScoreByNavigation { get; set; }
 
     public virtual ICollection<Question> Questions { get; set; } = new List<Question>();
-
+    [JsonIgnore]
     public virtual User? UpdatedByNavigation { get; set; }
 }

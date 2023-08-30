@@ -10,7 +10,13 @@ namespace QuizzApp.Ports.Repositories
 {
     public interface IQuestionRepository
     {
-        Task<Question> CreateQuestionAsync(QuestionToCreateDTO questionDto, CancellationToken cToken);
-        Task<Question> CreateMultipleChoiceQuestionAsync(MultipleChoiceQuestionDTO multiQuestion);
+        Task<Question> CreateQuestionAsync(
+            QuestionToCreateDTO questionDto, CancellationToken cToken);
+        Task<Question> CreateMultipleChoiceQuestionAsync(
+            Question multiQuestion, MultipleChoiceQuestion choices,
+            CancellationToken cToken);
+        Task<Question> CreateFillInQuestionAsync(
+            Question fillInQuestion, FillInBlankQuestion blankSpace,
+            CancellationToken cToken);
     }
 }

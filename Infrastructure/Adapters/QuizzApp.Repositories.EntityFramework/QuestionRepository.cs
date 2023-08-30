@@ -11,9 +11,23 @@ namespace QuizzApp.Repositories.EntityFramework
 {
     public class QuestionRepository : IQuestionRepository
     {
-        public Task<Question> CreateMultipleChoiceQuestionAsync(MultipleChoiceQuestionDTO multiQuestion)
+        private readonly QuizApiContext _context;
+        public QuestionRepository(QuizApiContext context)
         {
-            return null;
+            _context = context;
+        }
+
+        public async Task<Question> CreateMultipleChoiceQuestionAsync(
+            Question multiQuestion, MultipleChoiceQuestion choices, CancellationToken cToken)
+        {
+            await _context.Questions.AddAsync(multiQuestion, cToken);
+            await _context.MultipleChoiceQuestions.AddAsync(choices, cToken);
+
+            choices.QuestionId = multiQuestion.Id;
+            multiQuestion.MultipleChoiceQuestions.Add(choices);
+
+            await _context.SaveChangesAsync(cToken);
+            return multiQuestion;
         }
 
         public Task<Question> CreateQuestionAsync(QuestionToCreateDTO questionDto, CancellationToken cToken)
@@ -21,9 +35,18 @@ namespace QuizzApp.Repositories.EntityFramework
             return null;
         }
 
-        public Task<Question> CreateQuizAsync(QuestionToCreateDTO questionDto, CancellationToken cToken)
+        public async Task<Question> CreateFillInQuestionAsync(
+            Question fillInQuestion, FillInBlankQuestion blankSpace,
+            CancellationToken cToken)
         {
-            throw new NotImplementedException();
+            await _context.Questions.AddAsync(fillInQuestion, cToken);
+            await _context.SaveChangesAsync(cToken);
+
+            blankSpace.QuestionId = fillInQuestion.Id;
+
+            await _context.FillInBlankQuestions.AddAsync(blankSpace, cToken);
+            await _context.SaveChangesAsync(cToken);
+            return fillInQuestion;
         }
     }
 }
