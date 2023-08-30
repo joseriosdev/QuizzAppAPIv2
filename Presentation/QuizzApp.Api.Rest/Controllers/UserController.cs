@@ -32,7 +32,7 @@ namespace QuizzApp.Api.Rest.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetSingleUser(int id, CancellationToken cToken)
+        public async Task<ActionResult<UserToDisplayDTO>> GetSingleUser(int id, CancellationToken cToken)
         {
             var user = await _userService.FindByIdAsync(id, cToken);
             if (user is null)

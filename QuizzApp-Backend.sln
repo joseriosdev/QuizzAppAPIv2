@@ -33,9 +33,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizzApp.Services", "Core\A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{9CB3B962-4B7D-45C8-91C0-12F22BBE8019}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizzApp.Domain.Models", "Core\Domain\QuizzApp.Domain.Models\QuizzApp.Domain.Models.csproj", "{3E1C2491-0785-4788-8CF1-42A42EA89208}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizzApp.Domain.Models", "Core\Domain\QuizzApp.Domain.Models\QuizzApp.Domain.Models.csproj", "{3E1C2491-0785-4788-8CF1-42A42EA89208}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizzApp.UnitTests", "Tests\QuizzApp.UnitTests\QuizzApp.UnitTests.csproj", "{E64BF429-61C6-4DB9-BEA6-5572495319B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizzApp.Test", "QuizzApp.Test\QuizzApp.Test.csproj", "{88EC037A-A4C7-4F24-B133-35CC55399DF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,10 +71,10 @@ Global
 		{3E1C2491-0785-4788-8CF1-42A42EA89208}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E1C2491-0785-4788-8CF1-42A42EA89208}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E1C2491-0785-4788-8CF1-42A42EA89208}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E64BF429-61C6-4DB9-BEA6-5572495319B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E64BF429-61C6-4DB9-BEA6-5572495319B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E64BF429-61C6-4DB9-BEA6-5572495319B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E64BF429-61C6-4DB9-BEA6-5572495319B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88EC037A-A4C7-4F24-B133-35CC55399DF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88EC037A-A4C7-4F24-B133-35CC55399DF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88EC037A-A4C7-4F24-B133-35CC55399DF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88EC037A-A4C7-4F24-B133-35CC55399DF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,7 +92,7 @@ Global
 		{F4D4EF7C-05FE-4CDE-89F2-12B3E223EBB5} = {3347CAEB-883C-4763-8878-16E6EB43CB39}
 		{9CB3B962-4B7D-45C8-91C0-12F22BBE8019} = {9ED467F8-A35B-42D8-BACD-8464DC6CF3E6}
 		{3E1C2491-0785-4788-8CF1-42A42EA89208} = {9CB3B962-4B7D-45C8-91C0-12F22BBE8019}
-		{E64BF429-61C6-4DB9-BEA6-5572495319B9} = {56DDE88D-7092-4A9B-B781-4C33B0927C78}
+		{88EC037A-A4C7-4F24-B133-35CC55399DF2} = {56DDE88D-7092-4A9B-B781-4C33B0927C78}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ED6EE10B-55FD-4E25-81B2-DD5AFEAB74CA}
